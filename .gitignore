@@ -1,0 +1,8 @@
+*~
+*.lic
+*.iml
+*.tgz
+*.zip
+*.gz
+.idea/
+real/*
