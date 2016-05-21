@@ -53,3 +53,6 @@ jfrog rt cp apache-archive-cache/tomcat/tomcat-8/v8.0.32/bin/apache-tomcat-8.0.3
 
 #Step 5: Run App
 docker run -d --name test-app2 -p 8181:8181 883d7f53e798
+
+#PROMOTE TOMCAT VERSION:
+jfrog rt cp apache-archive-cache/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz tomcat-local/org/apache/apache-tomcat/pache-tomcat-8.0.35.tar.gz
