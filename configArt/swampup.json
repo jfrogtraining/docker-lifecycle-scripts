@@ -5,4 +5,5 @@
     "url" : "http://10.60.1.73/artifactory/jswampup-remote",
     "description" : "This repository provides a local cache of the lab artifactory server for artifacts that are used during the course",
     "notes" : "This repo was created by configArt.sh"
+    "propertySets" : [ "artifactory" ]
 }

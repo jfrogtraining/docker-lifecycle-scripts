@@ -8,5 +8,6 @@
     "handleReleases": true,
     "handleSnapshots": true,
     "maxUniqueSnapshots": 0,
-    "snapshotVersionBehavior": "unique"
+    "snapshotVersionBehavior": "unique",
+    "propertySets" : [ "artifactory" ]
 }
