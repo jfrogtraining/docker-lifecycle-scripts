@@ -9,3 +9,5 @@ real/*
 assets/*
 jdk*
 tomcat*
+*.war
+*.old
