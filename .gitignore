@@ -7,3 +7,5 @@
 .idea/
 real/*
 assets/*
+jdk*
+tomcat*
