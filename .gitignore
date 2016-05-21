@@ -11,3 +11,4 @@ jdk*
 tomcat*
 *.war
 *.old
+artifactory-user-plugins

@@ -25,6 +25,7 @@ brew upgrade jfrog-cli-go
 #If not on mac browse to: https://artifactory-us.jfrog.info/artifactory/jfrog-cli/1.2.0/
 #And select the appropriate binary for your distribution
 #Then build it.
+git clone https://github.com/JFrogDev/artifactory-user-plugins.git
 docker build .
 
 #if following commands with CLI do not work try using ./jfrog instead of just jfrog
@@ -41,7 +42,7 @@ curl http://artifactory-us.jfrog.info/artifactory/installations-local/artifactor
 <docker-machine IP> docker-virtual.art.local docker-dev-local2.art.local docker-prod-local2.art.local
 #Update insecure registries (ED NOTE:  Try to fix this by having real certs!)
 DOCKER_OPTS="$DOCKER_OPTS --insecure-registry docker-virtual.art.local --insecure-registry docker-dev-local2.art.local --insecure-registry docker-prod-local2.art.local --insecure-registry docker-remote.art.local"
-docker run -d --name art-docker -p 80:80 -p 8081:8081 -p 443:443 artifactory-us.jfrog.info/jfrog/artifactory-registry:4.7.4
+docker run -d --name art-docker -p 80:80 -p 8081:8081 -p 443:443 <hash>
 
 #Step 4: Run App
 docker run -d --name test-app2 -p 8181:8181 883d7f53e798
