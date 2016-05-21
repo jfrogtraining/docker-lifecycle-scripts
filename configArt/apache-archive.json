@@ -1,0 +1,9 @@
+{
+    "key" : "apache-archive",
+    "rclass" : "remote",
+    "packageType" : "generic",
+    "url" : "http://10.60.1.73/artifactory/apache-archive",
+    "description" : "This repository provides a chain remote from the lab server of the apache archive",
+    "notes" : "This repo was created by configArt.sh",
+    "repoLayoutRef" : "tomcat-layout"
+}
