@@ -6,4 +6,6 @@ ADD assets/artifactory.lic /var/opt/jfrog/artifactory/etc/artifactory.lic
 ADD artifactory-user-plugins/config/repoLayoutsConfig/repoLayoutsConfig.groovy /var/opt/jfrog/artifactory/etc/plugins/
 ADD artifactory-user-plugins/docker/dockerRetag/dockerRetag.groovy /var/opt/jfrog/artifactory/etc/plugins/
 
+RUN /bin/bash -c cd ~artifactory; chown artifactory:artifactory /var/opt/jfrog/artifactory/etc/plugins
+
 CMD /tmp/run.sh
