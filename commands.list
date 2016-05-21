@@ -1,22 +1,19 @@
-# Step 1:  Pull an artifactory server to use
-docker pull artifactory.local/jfrog/artifactory-registry
-
-#Step 2: Pull jenkins image
-docker pull artifactory.local/training/jenkins
-
-#Step 3: Install CLI and attach license
+# Step 1:  build an artifactory server to use
+# First Get a license
 #Run brew update if you haven’t done so recently
 brew update
 export HOMEBREW_BOTTLE_DOMAIN=https://10.60.1.73/artifactory
 brew install jfrog-cli-go
 #Otherwise browse to: https://artifactory-us.jfrog.info/artifactory/jfrog-cli/1.2.0/
 #And select the appropriate binary for your distribution
+#Then build it.
+docker build .
 
 jfrog mc c --url=http://10.60.1.221:8080 --user=admin --password=password --interactive=false
 jfrog mc rti attach-lic <userName> --bucket-id=abcdefg --bucket-key= 2c1fa1029a24a9c4b31f1117e3dc88aebbbceb9a6a96857773fd0f0c2cf52e03 --license-path=assets/artifactory.lic
 
-#Create docker image
-docker build
+#Step 2: Pull jenkins image
+docker pull artifactory.local/training/jenkins
 
 #Step 3: Setup docker
 export ARTIFACTORY_HOME=/var/opt/jfrog/artifactory
