@@ -1,0 +1,28 @@
+# Step 1:  Pull an artifactory server to use
+docker pull artifactory.local/jfrog/artifactory-registry
+
+#Step 2: Pull jenkins image
+docker pull artifactory.local/training/jenkins
+
+#Step 3: Install CLI and attach license
+#Run brew update if you haven’t done so recently
+brew update
+export HOMEBREW_BOTTLE_DOMAIN=https://10.60.1.73/artifactory
+brew install jfrog-cli-go
+#Otherwise browse to: https://artifactory-us.jfrog.info/artifactory/jfrog-cli/1.2.0/
+#And select the appropriate binary for your distribution
+
+jfrog mc c --url=http://10.60.1.221:8080 --user=admin --password=password --interactive=false
+jfrog mc rti attach-lic <userName> --bucket-id=abcdefg --bucket-key= 2c1fa1029a24a9c4b31f1117e3dc88aebbbceb9a6a96857773fd0f0c2cf52e03 --license-path=assets/artifactory.lic
+
+#Create docker image
+docker build
+
+#Step 3: Setup docker
+export ARTIFACTORY_HOME=/var/opt/jfrog/artifactory
+curl http://artifactory-us.jfrog.info/artifactory/installations-local/artifactory-H1.lic -o ./assets/artifactory.lic
+#Update HOSTS file (/etc/hosts on mac/linux system32 path for windows) (ED NOTE:  Get Proper Windows Path!) (ED NOTE:  Fix Windows/NGINX config.  Update this in docker-registry directly by adding docker-prod-virtual?)
+<docker-machine IP> docker-virtual.art.local docker-dev-local2.art.local docker-prod-local2.art.local
+#Update insecure registries (ED NOTE:  Try to fix this by having real certs!)
+DOCKER_OPTS="$DOCKER_OPTS --insecure-registry docker-virtual.art.local --insecure-registry docker-dev-local2.art.local --insecure-registry docker-prod-local2.art.local --insecure-registry docker-remote.art.local"
+docker run -d --name art-docker -p 80:80 -p 8081:8081 -p 443:443 artifactory-us.jfrog.info/jfrog/artifactory-registry:4.7.4

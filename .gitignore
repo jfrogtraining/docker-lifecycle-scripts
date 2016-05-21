@@ -6,3 +6,4 @@
 *.gz
 .idea/
 real/*
+assets/*
