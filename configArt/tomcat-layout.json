@@ -1,8 +1,0 @@
-{
-    "name": "tomcat-layout",
-    "artifactPathPattern": "[module]/([majorRel<.*>]/)v[baseRev]/bin/[org]-[module]-[baseRev].[ext]",
-    "distinctiveDescriptorPathPattern": false,
-    "descriptorPathPattern": null,
-    "folderIntegrationRevisionRegExp": ".*",
-    "fileIntegrationRevisionRegExp": ".*"
-}

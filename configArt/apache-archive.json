@@ -4,6 +4,5 @@
     "packageType" : "generic",
     "url" : "http://10.60.1.73/artifactory/apache-archive",
     "description" : "This repository is a remote of the archive.apache.org/dist where you can download things like tomcat",
-    "notes" : "This repo was created by configArt.sh. This repository is currently a chain remote from the lab server, to make this a direct remote (when outside classroom lab) change URL to: http://archive.apache.org/dist/",
-    "repoLayoutRef" : "tomcat-layout"
+    "notes" : "This repo was created by configArt.sh. This repository is currently a chain remote from the lab server, to make this a direct remote (when outside classroom lab) change URL to: http://archive.apache.org/dist/"
 }
