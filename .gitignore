@@ -12,3 +12,4 @@ tomcat*
 *.war
 *.old
 artifactory-user-plugins
+retag_out.json
