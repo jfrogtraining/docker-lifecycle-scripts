@@ -1,4 +1,4 @@
-FROM artifactory-us.jfrog.info/swampup/docker-framework:latest
+FROM docker-prod.art.local/swampup/docker-framework:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 

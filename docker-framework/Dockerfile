@@ -1,4 +1,4 @@
-FROM artifactory-us.jfrog.info/ubuntu:latest
+FROM docker-dev.art.local/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
