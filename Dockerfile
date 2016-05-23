@@ -1,4 +1,4 @@
-FROM artifactory-us.jfrog.info/jfrog/artifactory-registry:latest
+FROM 192.168.1.139:5003/jfrog/artifactory-registry:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 

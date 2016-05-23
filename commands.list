@@ -45,6 +45,7 @@ DOCKER_OPTS="$DOCKER_OPTS --insecure-registry docker-dev-virtual.art.local --ins
 
 docker run -d --name art-docker -p 80:80 -p 8081:8081 -p 443:443 artifactory-registry
 export DOCKER_ART_URL="http://192.168.243.128:8081/artifactory"
+#BROWSE TO: $DOCKER_ART_URL:8081/artifactory and wait for artifactory to start!
 cd configArt
 ./configArt.sh
 
