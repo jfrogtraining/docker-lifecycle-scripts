@@ -38,13 +38,13 @@ docker build --tag artifactory-registry .
 
 #Step 3: Setup docker
 #edit /etc/hosts add following line to bottom:
-<docker-machine IP> docker-dev-virtual.art.local docker-prod-virtual.art.loacl
+<docker-machine IP> docker-dev.art.local docker-prod.art.local art.local
 
 #Update insecure registries (ED NOTE:  Try to fix this by having real certs!)
 DOCKER_OPTS="$DOCKER_OPTS --insecure-registry docker-dev-virtual.art.local --insecure-registry docker-prod-virtual.art.local"
 
 docker run -d --name art-docker -p 80:80 -p 8081:8081 -p 443:443 artifactory-registry
-export DOCKER_ART_URL="http://192.168.243.128:8081/artifactory"
+export DOCKER_ART_URL="http://art.local:8081/artifactory"
 #BROWSE TO: $DOCKER_ART_URL:8081/artifactory and wait for artifactory to start!
 cd configArt
 ./configArt.sh
