@@ -76,7 +76,7 @@ export BUILD_NUMBER=1
 jfrog rt cp docker-dev-local2/swampup/docker-framework/$BUILD_NUMBER/ docker-prod-local2
 cd ../docker-framework/framework-test
 sed -E "s/@/$BUILD_NUMBER/" retag.json > retag_out.json
-curl -uadmin:password -X POST "$DOCKER_URL/api/plugins/execute/dockerRetag" -T retag_out.json
+curl -uadmin:password -X POST "$DOCKER_ART_URL/api/plugins/execute/dockerRetag" -T retag_out.json
 
 
 #Run App
