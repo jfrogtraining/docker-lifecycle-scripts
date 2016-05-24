@@ -4,7 +4,7 @@
     "ciUser": "swampupCI",
     "dryRun" : false,
     "targetRepo" : {
-	"gradle-build" : "libs-release-local",
+	"gradle_builds" : "libs-release-local",
 	"docker-app" : "docker-prod-local2",
     },
     "copy": false,
