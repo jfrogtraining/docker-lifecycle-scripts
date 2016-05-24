@@ -31,6 +31,24 @@ jfrog mc c --url=http://192.168.1.139:8085 --user=admin --password=password --in
 jfrog mc rti attach-lic <userName> --bucket-id=1831531631 --bucket-key=68b5f7dcbe7c25dcf2ef2952c7429b99ec217d01a832eb6c4261738187d2e097  --license-path=assets/artifactory.lic
 
 git clone https://github.com/JFrogDev/artifactory-user-plugins.git
+
+######Prepare your docker-machine######
+docker-machine ssh
+sudo vi /var/lib/boot2docker/profile
+#insert:
+--insecure-registry 192.168.1.139:5003
+--insecure-registry docker-dev.art.local
+--insecure-registry docker-prod.art.local
+#save and exit
+sudo vi /etc/hosts
+# this may not be needed on some machines but makes your life easy add:
+127.0.0.1 docker-dev.art.local docker-prod.art.local
+#save and exit
+exit
+docker-machine restart
+
+#####now we are ready to build#####
+
 docker build --tag artifactory-registry .
 
 #Step 2: Install Jenkins!
