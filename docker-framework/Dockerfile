@@ -1,4 +1,4 @@
-FROM gcartifactory-us.jfrog.info/ubuntu:latest
+FROM gcartifactory-us.jfrog.info:5000/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
