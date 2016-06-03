@@ -1,4 +1,4 @@
-FROM docker-dev.art.local/ubuntu:latest
+FROM gcartifactory-us.jfrog.info/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
