@@ -5,13 +5,13 @@
     "dryRun" : false,
     "targetRepo" : {
 	"docker-app" : "docker-prod-local2",
-	"gradle_builds" : "libs-release-local"
+	"gradle_builds" : "gradle-release-local"
     },
     "copy": true,
     "artifacts" : true,
     "dependencies" : false,
     "properties": {
-	"swampup": ["2016"]
+	"qa.status": ["approved"]
     },
     "failFast": true
 }
