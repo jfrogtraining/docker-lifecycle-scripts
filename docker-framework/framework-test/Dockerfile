@@ -1,4 +1,4 @@
-FROM docker-dev.art.local/swampup/docker-framework:latest
+FROM gcartfactory-us.jfrog.info:5000/docker-framework:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
