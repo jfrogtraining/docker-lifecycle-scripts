@@ -1,4 +1,4 @@
-FROM gcartfactory-us.jfrog.info:5000/docker-framework:latest
+FROM gcartifactory-us.jfrog.info:5000/docker-framework:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
