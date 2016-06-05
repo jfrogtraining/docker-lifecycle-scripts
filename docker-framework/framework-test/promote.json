@@ -3,9 +3,6 @@
     "comment" : "passed all tests and ready for production.",
     "ciUser": "swampupCI",
     "dryRun" : false,
-    "targetRepo" : {
-        "docker-framework" : "docker-prod-local2"
-    },
     "targetRepo" : "docker-prod-local2",
     "copy": false,
     "artifacts" : true,
