@@ -4,11 +4,11 @@
     "ciUser": "swampupCI",
     "dryRun" : false,
     "targetRepo" : "docker-prod-local2",
-    "copy": false,
+    "copy": true,
     "artifacts" : true,
     "dependencies" : false,
     "properties": {
-	"swampup": ["2016"]
+	"qa.status": ["approved"]
     },
     "failFast": true
 }
