@@ -2,7 +2,7 @@ FROM gcartifactory-us.jfrog.info:5000/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
-RUN /bin/bash -c cd ~; cd /home ; mkdir exec
+RUN /bin/bash -c cd ~; cd /home ; mkdir -p exec
 ADD jdk/jdk-8-linux-x64.tar.gz /home/exec
 RUN /bin/bash -c cd /home/exec; mv /home/exec/jdk1* /home/exec/jdk8
 ENV JAVA_HOME=/home/exec/jdk8
