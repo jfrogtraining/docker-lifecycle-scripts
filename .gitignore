@@ -14,3 +14,4 @@ tomcat*
 artifactory-user-plugins
 retag_out.json
 *#
+*.jar
