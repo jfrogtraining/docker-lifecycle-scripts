@@ -1,4 +1,4 @@
-FROM gcartifactory-us.jfrog.info:5000/ubuntu:latest
+FROM jfrogtraining-docker-prod.jfrog.io/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 
