@@ -1,5 +1,5 @@
 {
-    "targetRepo" : "docker-prod",                            // The target repository for the move or copy
-    "dockerRepository" : "docker-framework",                // The docker repository name to promote
-    "copy": true                                           // An optional value to set whether to copy instead of move. Default: false
+    "targetRepo" : "docker-prod",                   
+    "dockerRepository" : "docker-framework",
+    "copy": true
 }
