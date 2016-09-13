@@ -1,6 +1,7 @@
 {
-    "sourceRepo" : "docker-dev-local2",
-    "dockerImage" : "swampup/docker-app",
-    "sourceTag" : "@",
-    "destTag" : "latest"
+    "targetRepo" : "docker-dev-local",
+    "dockerRepository" : "docker-app",
+    "tag" : "@",
+    "targetTag" : "latest",
+    "copy": true
 }
