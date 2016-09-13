@@ -111,7 +111,6 @@ def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraini
             sh aqlCurl +' > promoteStatus.txt'
             sh 'cat promoteStatus.txt'
             sh 'cat promoteStatus.txt | jq -r \'.results[0]."build.promotions"[0]."build.promotion.status"\' > promoteStatus1.txt'
-            sh 'cat promoteStatus1.txt'
             def promoteStatus=readFile('promoteStatus1.txt')
             promoteStatus=promoteStatus.trim()
             println(promoteStatus)
