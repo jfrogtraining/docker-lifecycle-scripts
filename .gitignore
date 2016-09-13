@@ -12,7 +12,8 @@ tomcat*
 *.war
 *.old
 artifactory-user-plugins
-retag_out.json
+*_out.*
 *#
 *.jar
 version.txt
+promoteStatus.txt
