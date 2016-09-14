@@ -10,7 +10,6 @@ node {
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
     dir('docker-framework') {
-      sh 'pwd'
       def buildInfo = Artifactory.newBuildInfo()
       buildInfo.env.capture = true
       // Mark the code checkout 'stage'....
@@ -51,10 +50,11 @@ node {
       }
 
       stage('docker build') {
-        sh 'pwd'
         buildInfo.env.collect()
         println('starting build '+env.BUILD_NUMBER)
         def tagName='jfrogtraining-docker-dev.jfrog.io/docker-framework:'+env.BUILD_NUMBER
+        sh 'pwd'
+        sh 'cat Dockerfile'
         docker.build(tagName)
         artDocker.push(tagName, 'docker-dev-local', buildInfo)
         artServer.publishBuildInfo(buildInfo)
