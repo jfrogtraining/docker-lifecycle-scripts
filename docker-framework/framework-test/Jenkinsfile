@@ -1,18 +1,17 @@
 node {
-   // Mark the code checkout 'stage'....
-   stage 'Checkout'
+  // Mark the code checkout 'stage'....
+  stage 'Checkout'
 
-   // Get some code from a GitHub repository
-   git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-
-withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
-usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-def uname=env.USERNAME
-def pw=env.PASSWORD
-artServer.username=uname
-artServer.password=pw
- sh 'echo credentials applied'
- def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
+  // Get some code from a GitHub repository
+  git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
+  def artServer = Artifactory.server('jfrogtraining')
+  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+    def uname=env.USERNAME
+    def pw=env.PASSWORD
+    artServer.username=uname
+    artServer.password=pw
+    sh 'echo credentials applied'
+    def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     stage 'testing'
     dir('docker-framework/framework-test')
     {
@@ -39,28 +38,6 @@ usernameVariable: 'GCUSERNAME', passwordVariable: 'GCPASSWORD']]) {
     gcDocker=Artifactory.docker(gcuname, gcpw)
     gcDocker.push(tagNameTest, 'docker-local2')
 }
-    //stage 'promote'
-    def promotionConfig = [
-        // Mandatory parameters
-        'buildName'          : buildInfo.name,
-        'buildNumber'        : buildInfo.number,
-        'targetRepo'         : 'docker-prod-local',
-
-        // Optional parameters
-        'comment'            : 'this is the promotion comment',
-        'sourceRepo'         : 'docker-dev-local',
-        'status'             : 'Released',
-        'includeDependencies': false,
-        'copy'               : false
-    ]
-
-    // Promote build
-   // artServer.promote promotionConfig
-
-        sh 'sed -E "s/@/$BUILD_NUMBER/" retag.json > retag_out.json'
-        sh 'cat retag_out.json'
-        def retagstr=curlstr+"api/docker/docker-prod-local/v2/promote' -X POST -H 'Content-Type: application/json' -T retag_out.json"
-       // sh retagstr
     }
 }
 }
