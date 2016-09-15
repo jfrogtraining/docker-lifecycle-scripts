@@ -45,8 +45,9 @@ node {
         }"""
 
         artServer.download(downloadSpec, buildInfo)
-        sh 'ls -al docker-framework/jdk/'
-        sh 'ls -al docker-framework/tomcat/'
+        sh 'pwd'
+        sh 'ls -al jdk'
+        sh 'ls -al tomcat'
         sh 'echo download complete'
       }
       stage('docker build') {
