@@ -77,7 +77,7 @@ node {
     artServer.password=pw
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
-    dir('framework-test')
+    dir('docker-framework/framework-test')
     {
       stage('testing') {
         println('Get the latest version of the tomcat war from libs-release-local repo.  We only want war files that have been released')
