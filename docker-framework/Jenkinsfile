@@ -1,6 +1,11 @@
 
 
 node {
+     stage('Checkout') {
+
+   // Get some code from a GitHub repository
+   git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
+   }
   def artServer = Artifactory.server('jfrogtraining')
   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -11,15 +16,10 @@ node {
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
-    dir('docker-framework/docker-framework') {
-    stage('Checkout') {
-
-      // Get some code from a GitHub repository
-      git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-    }
+    dir('docker-framework') {
       buildInfo.env.capture = true
       // Mark the code checkout 'stage'....
-
+      sh 'ls -al'
       stage('Resolve') {
         def tomcatverstr=curlstr+ "api/search/latestVersion?g=org.apache&a=apache-tomcat&repos=tomcat-local'"
         println(tomcatverstr)
