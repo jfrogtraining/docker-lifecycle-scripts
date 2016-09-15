@@ -97,7 +97,7 @@ node {
         artServer.download(downloadSpecWar)
         def tagNameTest='gcartifactory-us.jfrog.info:5002/docker-framework-test:'+env.BUILD_NUMBER
         docker.build(tagNameTest)
-        docker.image(imageName).withRun('-p 8181:8181') {c ->
+        docker.image(tagNameTest).withRun('-p 8181:8181') {c ->
           sleep 5
           sh 'curl "http://localhost:8181/swampup/"'
         }
