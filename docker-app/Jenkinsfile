@@ -130,6 +130,15 @@ def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraini
             ]
             artServer.promote promotionWarConfig
             }
+            stage('distribute')
+            {
+              def dockerDistrib=curlstr+'api/build/distribute/'+env.JOB_NAME+'/'+env.BUILD_NUMBER+"' -X POST -H 'Content-Type: application/json' -T distribute.json"
+              if(promoteStatus!='Released') {
+                sed -E "s/#/$WARVER/g" distributeWar.json > distributeWar_out.json
+                def warDistrib=curlstr+"api/distribute' -X POST -H 'Content-Type: application/json' -T distributeWar_out.json"
+                sh warDistrib
+              }
+            }
         }
     }
 }
