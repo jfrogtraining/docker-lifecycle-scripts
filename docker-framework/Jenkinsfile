@@ -55,6 +55,7 @@ node {
         println('starting build '+env.BUILD_NUMBER)
         def tagName='jfrogtraining-docker-dev.jfrog.io/docker-framework:'+env.BUILD_NUMBER
         sh 'pwd'
+        sh 'ls -al'
         sh 'cat Dockerfile'
         docker.build(tagName)
         artDocker.push(tagName, 'docker-dev-local', buildInfo)
