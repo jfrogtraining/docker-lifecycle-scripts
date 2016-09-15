@@ -48,8 +48,9 @@ node {
         sh 'ls -al docker-framework/tomcat/'
         sh 'echo download complete'
       }
-
-      stage('docker build') {
+    }
+    stage('docker build') {
+      dir('docker-framework') {
         buildInfo.env.collect()
         println('starting build '+env.BUILD_NUMBER)
         def tagName='jfrogtraining-docker-dev.jfrog.io/docker-framework:'+env.BUILD_NUMBER
