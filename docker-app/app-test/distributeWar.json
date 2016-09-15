@@ -3,6 +3,6 @@
     "overrideExistingFiles" : "true",
     "async" : "false",
     "targetRepo" : "jenkins-pipeline-demo",
-    "sourceRepos" : ["libs-release-local/org/jfrog/example/gradle/webservice/#/webservice-#.war"],
+    "sourceRepos" : ["libs-release-local"],
     "dryRun" : "false"
 }
