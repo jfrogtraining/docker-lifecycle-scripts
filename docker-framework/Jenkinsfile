@@ -11,7 +11,7 @@ node {
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
-    dir('docker-framework') {
+    dir('docker-framework/docker-framework') {
     stage('Checkout') {
 
       // Get some code from a GitHub repository
