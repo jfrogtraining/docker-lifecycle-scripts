@@ -63,7 +63,7 @@ node {
       }
     }
   }
-}
+
 node {
   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
