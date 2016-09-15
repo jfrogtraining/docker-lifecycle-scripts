@@ -10,11 +10,11 @@ node {
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
-    stage('Checkout') {
+    //stage('Checkout') {
 
       // Get some code from a GitHub repository
-      git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-    }
+      //git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
+    //}
     dir('docker-framework') {
       buildInfo.env.capture = true
       // Mark the code checkout 'stage'....
