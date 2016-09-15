@@ -10,14 +10,14 @@ node {
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
+    stage('Checkout') {
+
+      // Get some code from a GitHub repository
+      git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
+    }
     dir('docker-framework') {
       buildInfo.env.capture = true
       // Mark the code checkout 'stage'....
-      stage('Checkout') {
-
-      // Get some code from a GitHub repository
-        git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-      }
 
       stage('Resolve') {
         def tomcatverstr=curlstr+ "api/search/latestVersion?g=org.apache&a=apache-tomcat&repos=tomcat-local'"
@@ -48,9 +48,7 @@ node {
         sh 'ls -al docker-framework/tomcat/'
         sh 'echo download complete'
       }
-    }
-    stage('docker build') {
-      dir('docker-framework') {
+      stage('docker build') {
         buildInfo.env.collect()
         println('starting build '+env.BUILD_NUMBER)
         def tagName='jfrogtraining-docker-dev.jfrog.io/docker-framework:'+env.BUILD_NUMBER
