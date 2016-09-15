@@ -11,6 +11,7 @@ node {
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
+    dir('docker-framework') {
     stage('Checkout') {
 
       // Get some code from a GitHub repository
@@ -64,7 +65,7 @@ node {
       }
     }
   }
-
+}
 node {
   def artServer = Artifactory.server('jfrogtraining')
   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
