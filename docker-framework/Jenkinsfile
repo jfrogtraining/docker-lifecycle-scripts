@@ -1,11 +1,9 @@
 
 
 node {
-     stage('Checkout') {
 
    // Get some code from a GitHub repository
    git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-   }
   def artServer = Artifactory.server('jfrogtraining')
   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -69,6 +67,7 @@ node {
   }
 }
 node {
+  git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
   def artServer = Artifactory.server('jfrogtraining')
   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
