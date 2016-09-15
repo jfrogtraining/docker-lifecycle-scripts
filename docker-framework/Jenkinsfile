@@ -9,8 +9,8 @@ node {
     artServer.password=pw
     def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     def artDocker= Artifactory.docker(uname, pw)
+    def buildInfo = Artifactory.newBuildInfo()
     dir('docker-framework') {
-      def buildInfo = Artifactory.newBuildInfo()
       buildInfo.env.capture = true
       // Mark the code checkout 'stage'....
       stage('Checkout') {
