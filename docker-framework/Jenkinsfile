@@ -21,8 +21,8 @@ node {
       stage('Resolve') {
         def tomcatverstr=curlstr+ "api/search/latestVersion?g=org.apache&a=apache-tomcat&repos=tomcat-local'"
         println(tomcatverstr)
-        sh tomcatverstr+' > docker-framework/tomcat/version.txt'
-        env.TOMCAT_VERSION=readFile('docker-framework/tomcat/version.txt')
+        sh tomcatverstr+' > tomcat/version.txt'
+        env.TOMCAT_VERSION=readFile('tomcat/version.txt')
         sh 'echo $TOMCAT_VERSION'
         //sh 'rm -rf docker-framework/tomcat'
         //sh 'rm -rf docker-framework/jdk'
