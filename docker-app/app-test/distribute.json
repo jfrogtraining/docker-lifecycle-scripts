@@ -2,7 +2,7 @@
     "publish" : "true",
     "overrideExistingFiles" : "true",
     "async" : "false",
-    "targetRepo" : "jenkins-pipeline-demo",
+    "targetRepos" : ["jenkins-pipeline-demo","jenkins-pipeline-demo"],
     "sourceRepos" : ["docker-prod-local", "libs-release-local"],
     "dryRun" : "false"
 }
