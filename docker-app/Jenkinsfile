@@ -1,12 +1,31 @@
 node {
+   //def artServer = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+  def artServer = Artifactory.server('jfrogtraining')
+   artServer.credentialsId='art-docker-ci'
+   def buildInfo = Artifactory.newBuildInfo()
+   stage 'Checkout Gradle'
+        git url: 'https://github.com/jfrogtraining/project-examples.git'
+dir('gradle-examples/4/gradle-example-ci-server') {
+ sh './increment.sh'
+}
+
+    stage 'Build Gradle'
+        //def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+        def artifactoryGradle = Artifactory.newGradleBuild()
+        artifactoryGradle.tool = 'gradle' // Tool name from Jenkins configuration
+        artifactoryGradle.deployer repo:'libs-dev-local', server: artServer
+        artifactoryGradle.resolver repo:'libs-dev', server: artServer
+        artifactoryGradle.run rootDir: "gradle-examples/4/gradle-example-ci-server/", buildFile: 'build.gradle', tasks: 'clean artifactoryPublish', buildInfo: buildInfo
+
+
    // Mark the code checkout 'stage'....
-   stage('Checkout') {
+   stage('Checkout Docker') {
 
    // Get some code from a GitHub repository
    git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
    }
-   def artServer = Artifactory.server('jfrogtraining')
-   def buildInfo = Artifactory.newBuildInfo()
+   //def artServer = Artifactory.server('jfrogtraining')
+   //def buildInfo = Artifactory.newBuildInfo()
    buildInfo.env.capture = true
 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -73,73 +92,30 @@ def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraini
             //}
         }
         stage('Promotions') {
-            def promotionConfig = [
-                // Mandatory parameters
-                'buildName'          : env.JOB_NAME,
-                'buildNumber'        : env.BUILD_NUMBER,
-                'targetRepo'         : 'docker-prod-local',
-
-                // Optional parameters
-                'comment'            : 'App image has passed test',
-                'sourceRepo'         : 'docker-dev-local',
-                'status'             : 'Released',
-                'includeDependencies': false,
-                'copy'               : false
-            ]
-
+            def promotestr=curlstr+"api/build/promote/$JOB_NAME/$BUILD_NUMBER' -X POST -H 'Content-Type: application/vnd.org.jfrog.artifactory.build.PromotionRequest+json' "
+            def dockerstr=promotestr + "-T promote-docker.json"
+            def warstr=promotestr + "-T promote-war.json"
+            sh 'cat promote-docker.json'
+            println(dockerstr)
+            sh dockerstr
+            sh 'cat promote-war.json'
+            sh warstr
             // Promote build
-            artServer.promote promotionConfig
             sh 'sed -E "s/@/$BUILD_NUMBER/" retag.json > retag_out.json'
             sh 'cat retag_out.json'
             def retagstr=curlstr+"api/docker/docker-prod-local/v2/promote' -X POST -H 'Content-Type: application/json' -T retag_out.json"
             sh retagstr
             //println(env.WARVER)
-            def getProps=curlstr+"api/storage/libs-dev/org/jfrog/example/gradle/webservice/"+env.WARVER+"/webservice-"+env.WARVER+".war?properties=build.name,build.number'"
-            sh getProps+' > warprops.json'
-            sh 'cat warprops.json | jq -r \'.properties."build.name"[0]\' > warbuildname.txt'
-            def warBuildName=readFile('warbuildname.txt')
-            warBuildName = warBuildName.trim()
-            env.WARBUILDNAME=warBuildName
-            sh 'sed -E "s/@/$WARBUILDNAME/" promoteStatus.aql > promoteStatus_out.aql'
-            sh 'cat warprops.json | jq -r \'.properties."build.number"[0]\' > warbuildnum.txt'
-            def warBuildNum=readFile('warbuildnum.txt')
-            warBuildNum = warBuildNum.trim()
-            env.WARBUILDNUM=warBuildNum
-            sh 'sed -E "s/#/$WARBUILDNUM/" promoteStatus_out.aql -i'
-            sh 'cat promoteStatus_out.aql'
-            def aqlCurl=curlstr+"api/search/aql' -X POST -T promoteStatus_out.aql"
-            sh aqlCurl +' > promoteStatus.txt'
-            sh 'cat promoteStatus.txt'
-            sh 'cat promoteStatus.txt | jq -r \'.results[0]."build.promotions"[0]."build.promotion.status"\' > promoteStatus1.txt'
-            def promoteStatus=readFile('promoteStatus1.txt')
-            promoteStatus=promoteStatus.trim()
-            println(promoteStatus)
-            if(promoteStatus!='Released') {
-            def promotionWarConfig = [
-                // Mandatory parameters
-                'buildName'          : warBuildName,
-                'buildNumber'        : warBuildNum,
-                'targetRepo'         : 'libs-release-local',
-
-                // Optional parameters
-                'comment'            : 'App image has passed test',
-                'sourceRepo'         : 'libs-dev-local',
-                'status'             : 'Released',
-                'includeDependencies': false,
-                'copy'               : false
-            ]
-            artServer.promote promotionWarConfig
             }
             stage('distribute')
             {
-              def dockerDistrib=curlstr+'api/build/distribute/'+env.JOB_NAME+'/'+env.BUILD_NUMBER+"' -X POST -H 'Content-Type: application/json' -T distribute.json"
+              def distribStr=curlstr+'api/build/distribute/'+env.JOB_NAME+'/'+env.BUILD_NUMBER+"' -X POST -H 'Content-Type: application/json' "
+              def dockerDistrib = distribStr+ "-T distributeDocker.json"
+              println(dockerDistrib)
               sh dockerDistrib
-              if(promoteStatus!='Released') {
-                def warDistrib=curlstr+'api/build/distribute/'+env.WARBUILDNAME+'/'+env.WARBUILDNUM+"' -X POST -H 'Content-Type: application/json' -T distributeWar.json"
-                sh warDistrib
-              }
+              def warDistrib = distribStr+"-T distributeWar.json"
+              sh warDistrib
             }
         }
     }
-}
 }
