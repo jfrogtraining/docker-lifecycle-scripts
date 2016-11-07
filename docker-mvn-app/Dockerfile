@@ -1,4 +1,4 @@
-FROM hello-world:latest
+FROM xray-demo-docker-virtual.jfrog.io/hello-world:latest
 
 MAINTAINER Stanley Fong  stanleyf@jfrog.com
 
