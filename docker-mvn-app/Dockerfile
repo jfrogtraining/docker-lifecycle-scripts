@@ -1,4 +1,4 @@
-FROM docker-framework:latest
+FROM hello-world:latest
 
 MAINTAINER Stanley Fong  stanleyf@jfrog.com
 
