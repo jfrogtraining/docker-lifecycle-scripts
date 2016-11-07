@@ -1,4 +1,4 @@
-FROM jfrogtraining-docker-dev.jfrog.io/hello-world:latest
+FROM gcartifactory-us.jfrog.info:5007/jfrogintegration:30
 
 MAINTAINER Stanley Fong  stanleyf@jfrog.com
 
