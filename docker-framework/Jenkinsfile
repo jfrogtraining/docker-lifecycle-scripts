@@ -56,8 +56,8 @@ node {
         sh 'ls -al'
         sh 'cat Dockerfile'
         docker.build(tagName)
-        //artDocker.push(tagName, 'docker-dev-local', buildInfo)
-        //artServer.publishBuildInfo(buildInfo)
+        artDocker.push(tagName, 'docker-dev-local', buildInfo)
+        artServer.publishBuildInfo(buildInfo)
         println('Retagging Image')
         sh 'sed -E "s/@/$BUILD_NUMBER/" retag.json > retag_out.json'
         sh 'cat retag_out.json'
