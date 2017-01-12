@@ -1,5 +1,5 @@
 {
-    "sourceRepo" : "docker-dev-local",
+    "targetRepo" : "docker-dev-local",
     "dockerImage" : "docker-framework",
     "sourceTag" : "@",
     "destTag" : "latest",
