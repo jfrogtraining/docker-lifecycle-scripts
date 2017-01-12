@@ -4,14 +4,14 @@ node {
 
    // Get some code from a GitHub repository
    git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-  def artServer = Artifactory.server('jfrogtraining')
-  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
+  def artServer = Artifactory.server('4x-snapshot')
+  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '4xsnap-docker-ci',
   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     def uname=env.USERNAME
     def pw=env.PASSWORD
     artServer.username=uname
     artServer.password=pw
-    def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
+    def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
     dir('docker-framework') {
@@ -51,7 +51,7 @@ node {
       stage('docker build') {
         buildInfo.env.collect()
         println('starting build '+env.BUILD_NUMBER)
-        def tagName='jfrogtraining-docker-dev.jfrog.io/docker-framework:'+env.BUILD_NUMBER
+        def tagName='104.154.19.237:9002/docker-framework:'+env.BUILD_NUMBER
         sh 'pwd'
         sh 'ls -al'
         sh 'cat Dockerfile'
@@ -68,14 +68,14 @@ node {
 }
 node {
   git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-  def artServer = Artifactory.server('jfrogtraining')
-  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
+  def artServer = Artifactory.server('4x-snapshot')
+  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '4xsnap-docker-ci',
   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     def uname=env.USERNAME
     def pw=env.PASSWORD
     artServer.username=uname
     artServer.password=pw
-    def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
+    def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
     def artDocker= Artifactory.docker(uname, pw)
     dir('docker-framework/framework-test')
     {
@@ -95,7 +95,7 @@ node {
 }""" //"//DownloadSpec
         println(downloadSpecWar)
         artServer.download(downloadSpecWar)
-        def tagNameTest='gcartifactory-us.jfrog.info:5002/docker-framework-test:'+env.BUILD_NUMBER
+        def tagNameTest='104.154.19.237:9002/docker-framework-test:'+env.BUILD_NUMBER
         docker.build(tagNameTest)
         docker.image(tagNameTest).withRun('-p 8181:8181') {c ->
           sleep 5

@@ -4,19 +4,20 @@ node {
 
   // Get some code from a GitHub repository
   git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-  def artServer = Artifactory.server('jfrogtraining')
-  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+  def artServer = Artifactory.server('4x-snapshot')
+  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '4xsnap-docker-ci', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     def uname=env.USERNAME
     def pw=env.PASSWORD
     artServer.username=uname
     artServer.password=pw
     sh 'echo credentials applied'
-    def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
+    def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
     stage 'testing'
     dir('docker-framework/framework-test')
     {
         def warverstr=curlstr+ "api/search/latestVersion?g=org.jfrog.example.gradle&a=webservice&repos=libs-release-local'"
        sh warverstr +' > war/version.txt'
+       sh 'cat war/version.txt'
        env.WARVER=readFile('war/version.txt')
         def downloadSpecWar = """{
  "files": [
