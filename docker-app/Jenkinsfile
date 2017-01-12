@@ -88,6 +88,22 @@ def curlstr="curl -u"+uname+':'+pw+" 'https://us-demo-4x.jfrog.info/artifactory/
                 }
             //}
         }
+        stage('Xray scan')
+        {
+          def xrayConfig = [
+            //Mandatory parameters
+            'buildName'         : env.JOB_NAME,
+            'buildNumber'       : env.BUILD_NUMBER,
+
+            //Optional
+            'failBuild'        :true //Default
+          ]
+
+          // Scan xray build
+          def xrayResults = server.xrayScan xrayConfig
+          // Print full report from xray
+          echo xrayResults as String
+        }
         stage('Promotions') {
             def promotestr=curlstr+"api/build/promote/$JOB_NAME/$BUILD_NUMBER' -X POST -H 'Content-Type: application/vnd.org.jfrog.artifactory.build.PromotionRequest+json' "
             def dockerstr=promotestr + "-T promote-docker.json"
