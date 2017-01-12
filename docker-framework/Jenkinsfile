@@ -61,7 +61,7 @@ node {
         println('Retagging Image')
         sh 'sed -E "s/@/$BUILD_NUMBER/" retag.json > retag_out.json'
         sh 'cat retag_out.json'
-        def retagstr=curlstr+"api/docker/docker-prod-local/v2/promote' -X POST -H 'Content-Type: application/json' -T retag_out.json"
+        def retagstr=curlstr+"api/docker/docker-dev-local/v2/promote' -X POST -H 'Content-Type: application/json' -T retag_out.json"
         sh retagstr
       }
     }
