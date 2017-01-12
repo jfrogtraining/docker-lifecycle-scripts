@@ -32,7 +32,7 @@ def pw=env.PASSWORD
 artServer.username=uname
 artServer.password=pw
  sh 'echo credentials applied'
- def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
+ def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
 dir('docker-app') {
    stage('Resolve') {
        def warverstr=curlstr+ "api/search/latestVersion?g=org.jfrog.example.gradle&a=webservice&repos=libs-dev'"
