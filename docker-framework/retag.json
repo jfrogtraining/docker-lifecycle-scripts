@@ -1,6 +1,6 @@
 {
     "sourceRepo" : "docker-dev-local",
-    "dockerImage" : "swampup/docker-framework",
+    "dockerImage" : "docker-framework",
     "sourceTag" : "@",
     "destTag" : "latest"
 }
