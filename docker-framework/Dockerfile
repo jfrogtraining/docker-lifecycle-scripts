@@ -1,4 +1,4 @@
-FROM jfrogtraining-docker-dev.jfrog.io/ubuntu:latest
+FROM 104.154.19.237:9002/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 

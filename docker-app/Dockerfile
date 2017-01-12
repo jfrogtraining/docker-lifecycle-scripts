@@ -1,4 +1,4 @@
-FROM jfrogtraining-docker-prod.jfrog.io/docker-framework:latest
+FROM 104.154.19.237:9003/docker-framework:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 

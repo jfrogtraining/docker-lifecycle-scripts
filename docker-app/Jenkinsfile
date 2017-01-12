@@ -50,7 +50,7 @@ dir('docker-app') {
     artServer.download(downloadSpec, buildInfo)
    }
    stage('Build and Deploy') {
-        def tagName='jfrogtraining-docker-dev.jfrog.io/docker-app:'+env.BUILD_NUMBER
+        def tagName='104.154.19.237:9002/docker-app:'+env.BUILD_NUMBER
         docker.build(tagName)
         def artDocker= Artifactory.docker(uname, pw)
         artDocker.push(tagName, 'docker-dev-local', buildInfo)
@@ -65,8 +65,8 @@ dir('docker-app') {
 }
 node {
     git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
-    def artServer = Artifactory.server('jfrogtraining')
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
+    def artServer = Artifactory.server('4x-snapshot')
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '4xsnap-docker-ci',
 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 def uname=env.USERNAME
 def pw=env.PASSWORD
@@ -76,7 +76,7 @@ artServer.password=pw
 def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
     dir('docker-app/app-test') {
         stage('testing app') {
-            def imageName='jfrogtraining-docker-dev.jfrog.io/docker-app'+':'+env.BUILD_NUMBER
+            def imageName='104.154.19.237:9002/docker-app'+':'+env.BUILD_NUMBER
             sh 'docker images | grep docker-app'
             println(imageName)
             sh 'docker rmi '+imageName+' || true'
