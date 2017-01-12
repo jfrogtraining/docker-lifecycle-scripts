@@ -100,7 +100,7 @@ def curlstr="curl -u"+uname+':'+pw+" 'https://us-demo-4x.jfrog.info/artifactory/
           ]
 
           // Scan xray build
-          def xrayResults = server.xrayScan xrayConfig
+          def xrayResults = artServer.xrayScan xrayConfig
           // Print full report from xray
           echo xrayResults as String
         }
