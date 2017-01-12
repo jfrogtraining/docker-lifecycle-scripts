@@ -1,7 +1,7 @@
 {
     "targetRepo" : "docker-dev-local",
     "dockerRepository" : "docker-framework",
-    "sourceTag" : "@",
-    "destTag" : "latest",
+    "tag" : "@",
+    "targetTag" : "latest",
     "copy": true
 }
