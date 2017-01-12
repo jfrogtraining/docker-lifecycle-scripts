@@ -37,6 +37,7 @@ dir('docker-app') {
    stage('Resolve') {
        def warverstr=curlstr+ "api/search/latestVersion?g=org.jfrog.example.gradle&a=webservice&repos=libs-dev'"
        sh warverstr +' > war/version.txt'
+       sh 'cat war/version.txt'
        env.WARVER=readFile('war/version.txt')
         def downloadSpec = """{
  "files": [
