@@ -1,5 +1,4 @@
 node {
-   //def artServer = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
   def artServer = Artifactory.server('4x-snapshot')
    artServer.credentialsId='4xsnap-docker-ci'
    def buildInfo = Artifactory.newBuildInfo()
@@ -10,7 +9,6 @@ dir('gradle-examples/4/gradle-example-ci-server') {
 }
 
     stage 'Build Gradle'
-        //def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
         def artifactoryGradle = Artifactory.newGradleBuild()
         artifactoryGradle.tool = 'gradle' // Tool name from Jenkins configuration
         artifactoryGradle.deployer repo:'libs-dev-local', server: artServer
@@ -25,7 +23,7 @@ dir('gradle-examples/4/gradle-example-ci-server') {
    git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
    }
    buildInfo.env.capture = true
-withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
+withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '4xsnap-docker-ci',
 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 def uname=env.USERNAME
 def pw=env.PASSWORD
