@@ -11,7 +11,7 @@ node {
     def pw=env.PASSWORD
     artServer.username=uname
     artServer.password=pw
-    def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
+    def curlstr="curl -u"+uname+':'+pw+" 'https://us-demo-4x.jfrog.info/artifactory/"
     def artDocker= Artifactory.docker(uname, pw)
     def buildInfo = Artifactory.newBuildInfo()
     dir('docker-framework') {
@@ -51,7 +51,7 @@ node {
       stage('docker build') {
         buildInfo.env.collect()
         println('starting build '+env.BUILD_NUMBER)
-        def tagName='104.154.19.237:9002/docker-framework:'+env.BUILD_NUMBER
+        def tagName='us-demo-4x.jfrog.info:9002/docker-framework:'+env.BUILD_NUMBER
         sh 'pwd'
         sh 'ls -al'
         sh 'cat Dockerfile'
@@ -75,7 +75,7 @@ node {
     def pw=env.PASSWORD
     artServer.username=uname
     artServer.password=pw
-    def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
+    def curlstr="curl -u"+uname+':'+pw+" 'https://us-demo-4x.jfrog.info/artifactory/"
     def artDocker= Artifactory.docker(uname, pw)
     dir('docker-framework/framework-test')
     {

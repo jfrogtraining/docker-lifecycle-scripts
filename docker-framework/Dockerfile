@@ -1,4 +1,4 @@
-FROM 104.154.19.237:9002/ubuntu:latest
+FROM us-demo-4x.jfrog.info:9002/ubuntu:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 

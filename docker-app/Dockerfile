@@ -1,4 +1,4 @@
-FROM 104.154.19.237:9003/docker-framework:latest
+FROM us-demo-4x.jfrog.info:9003/docker-framework:latest
 
 MAINTAINER Mark Galpin markg@jfrog.com
 

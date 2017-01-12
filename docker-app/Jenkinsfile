@@ -30,7 +30,7 @@ def pw=env.PASSWORD
 artServer.username=uname
 artServer.password=pw
  sh 'echo credentials applied'
- def curlstr="curl -u"+uname+':'+pw+" 'http://104.154.19.237:8081/artifactory/"
+ def curlstr="curl -u"+uname+':'+pw+" 'http://us-demo-4x.jfrog.info/artifactory/"
 dir('docker-app') {
    stage('Resolve') {
        def warverstr=curlstr+ "api/search/latestVersion?g=org.jfrog.example.gradle&a=webservice&repos=libs-dev'"
@@ -50,7 +50,7 @@ dir('docker-app') {
     artServer.download(downloadSpec, buildInfo)
    }
    stage('Build and Deploy') {
-        def tagName='104.154.19.237:9002/docker-app:'+env.BUILD_NUMBER
+        def tagName='us-demo-4x.jfrog.info:9002/docker-app:'+env.BUILD_NUMBER
         docker.build(tagName)
         def artDocker= Artifactory.docker(uname, pw)
         artDocker.push(tagName, 'docker-dev-local', buildInfo)
@@ -73,10 +73,10 @@ def pw=env.PASSWORD
 artServer.username=uname
 artServer.password=pw
         def artDocker= Artifactory.docker(uname, pw)
-def curlstr="curl -u"+uname+':'+pw+" 'https://jfrogtraining.jfrog.io/jfrogtraining/"
+def curlstr="curl -u"+uname+':'+pw+" 'https://us-demo-4x.jfrog.info/artifactory/"
     dir('docker-app/app-test') {
         stage('testing app') {
-            def imageName='104.154.19.237:9002/docker-app'+':'+env.BUILD_NUMBER
+            def imageName='us-demo-4x.jfrog.info:9002/docker-app'+':'+env.BUILD_NUMBER
             sh 'docker images | grep docker-app'
             println(imageName)
             sh 'docker rmi '+imageName+' || true'
