@@ -2,5 +2,6 @@
     "sourceRepo" : "docker-dev-local",
     "dockerImage" : "docker-framework",
     "sourceTag" : "@",
-    "destTag" : "latest"
+    "destTag" : "latest",
+    "copy": true
 }
