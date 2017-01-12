@@ -1,7 +1,7 @@
 node {
    //def artServer = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
-  def artServer = Artifactory.server('jfrogtraining')
-   artServer.credentialsId='art-docker-ci'
+  def artServer = Artifactory.server('4x-snapshot')
+   artServer.credentialsId='4xsnap-docker-ci'
    def buildInfo = Artifactory.newBuildInfo()
    stage 'Checkout Gradle'
         git url: 'https://github.com/jfrogtraining/project-examples.git'
@@ -24,8 +24,6 @@ dir('gradle-examples/4/gradle-example-ci-server') {
    // Get some code from a GitHub repository
    git url: 'https://github.com/jfrogtraining/docker-lifecycle-scripts'
    }
-   //def artServer = Artifactory.server('jfrogtraining')
-   //def buildInfo = Artifactory.newBuildInfo()
    buildInfo.env.capture = true
 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'art-docker-ci',
 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
