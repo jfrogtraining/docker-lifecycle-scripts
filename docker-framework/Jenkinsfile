@@ -111,7 +111,7 @@ node {
           'buildNumber'       : '41',
 
           //Optional
-          'failBuild'        :true //Default
+          'failBuild'        :false //Default
         ]
 
         // Scan xray build
