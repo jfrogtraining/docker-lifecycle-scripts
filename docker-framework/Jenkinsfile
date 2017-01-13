@@ -107,7 +107,7 @@ node {
       {
         def xrayConfig = [
           //Mandatory parameters
-          'buildName'         : env.JOB_NAME,
+          'buildName'         : 41,
           'buildNumber'       : env.BUILD_NUMBER,
 
           //Optional
