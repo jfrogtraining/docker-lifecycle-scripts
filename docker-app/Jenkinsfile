@@ -96,7 +96,7 @@ def curlstr="curl -u"+uname+':'+pw+" 'https://us-demo-4x.jfrog.info/artifactory/
             'buildNumber'       : env.BUILD_NUMBER,
 
             //Optional
-            'failBuild'        :true //Default
+            'failBuild'        : false
           ]
 
           // Scan xray build
